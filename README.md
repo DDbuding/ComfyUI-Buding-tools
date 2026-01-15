@@ -1,6 +1,5 @@
 # ComfyUI-Buding-tools
 
-![Version](https://img.shields.io/badge/version-3.1.3-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![ComfyUI](https://img.shields.io/badge/ComfyUI-compatible-brightgreen.svg)
 ![Date](https://img.shields.io/badge/release-2026.01.12-orange.svg)
@@ -305,5 +304,6 @@ ComfyUI-Buding-tools/
 **ComfyUI-Buding-tools** - 让AI内容创作更简单、更强大！
 
 ## 许可证
+
 
 遵循原始各插件的许可证协议。
