@@ -1,0 +1,168 @@
+{
+  "name": "ComfyUI-Buding-tools",
+  "version": "1.0.0",
+  "description": "合并的 Buding 工具集合",
+  "nodes": [
+    {
+      "name": "buding_BasicAudioSegmenter",
+      "display_name": "🎵 Buding-time 基础音频切分器",
+      "file": "basic_audio_segmenter.py",
+      "category": "Buding-time/Audio",
+      "description": "基础音频切分器 - 仅使用文件信息和文本处理"
+    },
+    {
+      "name": "buding_BatchIndexStepper",
+      "display_name": "🔢 增强版批量索引步进器",
+      "file": "batch_index_stepper.py",
+      "category": "buding_Tools/批量控制",
+      "description": "增强版批量索引步进器 - 智能化批量处理的索引计算器"
+    },
+    {
+      "name": "buding_行文本输出增强版",
+      "display_name": "buding_行文本输出增强版",
+      "file": "batch_line_output.py",
+      "category": "Buding/TextStory/文本处理",
+      "description": "行文本输出增强版节点：支持多关键词筛选、单行/多行模式、随机种子\n\n功能特点：\n- UTF-8 固定编码\n- 关键词筛选：支持单/多关键词，AND/OR 模式（\"、\"分隔）\n- 单行模式：按关键词筛选，无匹配或禁用随机时返回第一行；启用随机时随机选一行\n- 多行模式：按行索引范围提取，禁用随机按顺序输出；启用随机从范围内随机抽取\n- 随机种子控制：randomize=启用 自动生成，randomize=禁用 使用指定 seed\n- 智能回退：范围内不足时可选回退到全部行\n- 自动移除空行（无法关闭，默认行为）\n- 双输出：文本 + 统计日志"
+    },
+    {
+      "name": "buding_BatchRoleAudio",
+      "display_name": "🎭🎵🎧 批量角色音频处理器(v1.5完整优化版)",
+      "file": "batch_role_audio.py",
+      "category": "buding_Tools/Audio",
+      "description": "🎭🎵🎧 批量角色音频处理器 (v2.0 完整优化版)\n\n核心特性：\n- 根据文本中的标签 [s1][s2] 等自动匹配并加载音频\n- 支持 20 个角色槽位，每个对应独立的音频通道\n- 智能除噪器：自动处理 [s1]=旁白、[s1]:旁白 等格式干扰\n- 三层匹配策略：精确匹配、前缀匹配、包含匹配\n- 最小时长过滤：避免加载太短导致TTS参考不足\n- 两层随机系统：seed固定情感+random_selection真正随机\n- 详细的增强日志，显示候选文件和当前选择\n- TTL缓存机制：30秒自动过期，防止陈旧数据\n- IS_CHANGED()方法：正确通知ComfyUI何时需要重新执行"
+    },
+    {
+      "name": "buding_BatchRoleAudioV2",
+      "display_name": "🎭🎵 buding_BatchRoleAudio V2 (半自动角色音频)",
+      "file": "batch_role_audio_v2.py",
+      "category": "buding_Tools/Audio",
+      "description": "🎭🎵 批量角色音频加载器 V2（半自动版）\n\n工作流程：\n1. 自动扫描文本，提取所有 [角色名]\n2. 为每个角色查找音频：\n   - 优先：roles_mapping 中的手动映射路径\n   - 后备：library_root 下自动查找角色名文件夹\n3. 每个角色随机选择一个参考音频\n4. 输出字典 {\"角色名\": audio}，直接给 Dynamic Emotion\n\n关键特性：\n- 零编号：不再需要 [s1] [s2]，直接用中文角色名\n- 半自动：可选手动映射，也可完全自动\n- 完美对接：输出格式直接匹配 Dynamic Emotion 输入\n- 灵活扩展：支持无限个角色（不再限制20个）"
+    },
+    {
+      "name": "buding_BatchStatisticsLog",
+      "display_name": "📊 Batch Statistics Log (批量统计日志)",
+      "file": "batch_statistics_log.py",
+      "category": "buding_Tools/Log",
+      "description": "📊 批量统计日志节点\n汇总输入、加载、保存等环节的日志，生成标准化的任务报告。"
+    },
+    {
+      "name": "buding_ConditionalAudio",
+      "display_name": "🎵 buding_ConditionalAudio (音频开关)",
+      "file": "conditional_audio.py",
+      "category": "buding_Tools/Audio/Control",
+      "description": "条件音频开关：根据布尔值控制音频数据的输出"
+    },
+    {
+      "name": "buding_读取TXT文件增强版",
+      "display_name": "buding_读取TXT文件增强版",
+      "file": "read_txt_advanced.py",
+      "category": "Buding/TextStory/文本处理",
+      "description": "增强版TXT读取节点：支持目录扫描、文件过滤、灵活的输出模式\n\n功能特点：\n- UTF-8固定编码，无需用户选择\n- 支持目录扫描，可控制扫描深度（0-10层）\n- 文件名关键词过滤：支持单关键词或多关键词 AND 模式\n  * 单关键词：如 \"动漫\" 匹配包含\"动漫\"的文件\n  * 多关键词：用\"、\"分隔，如 \"动漫、前缀\" 匹配同时包含\"动漫\"和\"前缀\"的文件\n  * AND 逻辑：所有关键词都必须在文件名中，顺序无关\n- 两种输出模式：单行输出（按前缀提取）、多行输出（按行号范围）\n- 自动移除空行（无法关闭，默认行为）\n- 双输出：文本 + 统计日志"
+    },
+    {
+      "name": "buding_RoleMatcher",
+      "display_name": "🎭 buding_RoleMatcher (角色匹配器)",
+      "file": "role_matcher.py",
+      "category": "buding_Tools/Audio/Control",
+      "description": "角色匹配器：根据关键词识别文本中的角色，输出布尔值控制信号"
+    },
+    {
+      "name": "buding_Universal SRT Writer",
+      "display_name": "🎬 buding_Universal SRT Writer (支持文本/JSON)",
+      "file": "script_to_srt_node.py",
+      "category": "Utils/Scripting",
+      "description": "通用 SRT 写入器：支持原始文本脚本（自动计算时间）或 JSON 时间轴数据。"
+    },
+    {
+      "name": "buding_SimpleAudioBatchLoader",
+      "display_name": "🎵 简化音频批量加载器",
+      "file": "simple_audio_batch_loader.py",
+      "category": "buding_Tools/简化音频加载",
+      "description": "简化版音频批量加载器"
+    },
+    {
+      "name": "buding_SimpleImageBatchLoader",
+      "display_name": "🖼️ 简化图像批量加载器",
+      "file": "simple_image_batch_loader.py",
+      "category": "buding_Tools/简化图像加载",
+      "description": "简化图像批量加载器"
+    },
+    {
+      "name": "buding_SimpleTextBatchLoader",
+      "display_name": "📝 简化文本批量加载器",
+      "file": "simple_text_batch_loader.py",
+      "category": "buding_Tools/简化文本加载",
+      "description": "简化文本批量加载器"
+    },
+    {
+      "name": "buding_SmartAudioBatchLoader",
+      "display_name": "🎵 buding_SmartAudioBatchLoader (智能音频批量加载器)",
+      "file": "smart_audio_batch_loader.py",
+      "category": "buding_Tools/智能文件加载",
+      "description": "智能音频批量加载器"
+    },
+    {
+      "name": "buding_SmartAudioSegmenter",
+      "display_name": "🎵 Buding - 智能音频切割器（SRT+Whisper）",
+      "file": "smart_audio_segmenter.py",
+      "category": "Buding-time/Audio",
+      "description": "智能音频切割器 - 支持 SRT + Whisper 双重模式"
+    },
+    {
+      "name": "buding_SmartTextLoader",
+      "display_name": "📝 智能文本批量加载器",
+      "file": "smart_text_loader.py",
+      "category": "buding_Tools/File_Assets",
+      "description": "智能文本批量加载器"
+    },
+    {
+      "name": "buding_SmartVideoBatchLoader",
+      "display_name": "🎬 buding_SmartVideoBatchLoader (智能视频批量加载器)",
+      "file": "smart_video_batch_loader.py",
+      "category": "buding_Tools/智能文件加载",
+      "description": "智能视频批量加载器"
+    },
+    {
+      "name": "SRTParser",
+      "display_name": "📝 SRT字幕解析器 (Buding-time)",
+      "file": "srt_parser.py",
+      "category": "Buding-time/字幕处理",
+      "description": "解析SRT字幕文件并转换为JSON格式"
+    },
+    {
+      "name": "buding_文本净化器",
+      "display_name": "Buding 文本净化器",
+      "file": "text_cleaner.py",
+      "category": "Buding/TextStory/文本处理",
+      "description": "文本净化器：专门处理前缀删除、符号容器删除、空格清理等\n职责：剥离（strip），不涉及关键词过滤"
+    },
+    {
+      "name": "buding_文本净化器增强版",
+      "display_name": "Buding 文本净化器增强版",
+      "file": "text_cleaner_advanced.py",
+      "category": "Buding/TextStory/文本处理",
+      "description": "文本净化器增强版：在原有净化功能基础上增加文本筛选功能\n职责：前缀删除、容器删除、空格清理、文本筛选"
+    },
+    {
+      "name": "buding_容器内容提取器",
+      "display_name": "Buding 容器内容提取器",
+      "file": "text_extractor.py",
+      "category": "Buding/TextStory/文本处理",
+      "description": "容器内容提取器：从指定的符号容器中提取文本内容\n支持自定义容器符号、换行或空格排列模式"
+    },
+    {
+      "name": "buding_TextFileLoader",
+      "display_name": "Buding - 文本文件加载器",
+      "file": "text_file_loader.py",
+      "category": "Buding-time/Loaders",
+      "description": "文本文件加载器 - 支持 SRT、TXT、JSON 批量加载"
+    },
+    {
+      "name": "buding_文本过滤器",
+      "display_name": "Buding 文本过滤器",
+      "file": "text_filter.py",
+      "category": "Buding/TextStory/文本处理",
+      "description": "文本过滤器：专门处理关键词匹配、去重、删除等过滤工作\n职责：匹配关键词、去重、删除行或部分删除"
+    }
+  ]
+}

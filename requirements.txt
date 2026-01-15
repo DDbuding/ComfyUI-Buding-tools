@@ -1,0 +1,31 @@
+# ComfyUI-Buding-tools 依赖清单
+# 极简宽松形式：所有依赖均为可选，即使缺失也能正常加载插件
+
+# 核心依赖（ComfyUI环境通常已包含）
+torch>=1.9.0
+torchvision>=0.10.0
+torchaudio>=0.9.0
+numpy>=1.21.0
+
+# 音频处理相关
+mutagen>=1.45.0
+soundfile>=0.10.0
+ffmpeg-python>=0.2.0
+scipy>=1.7.0
+faster_whisper>=0.10.0
+
+# 图像/视频处理相关
+opencv-python>=4.5.0
+Pillow>=8.0.0
+decord>=0.6.0
+
+# 数据处理相关
+openpyxl
+
+# 安装说明：
+# pip install -r requirements.txt
+#
+# 注意：所有依赖都是可选的
+# - 插件设计为即使缺少依赖也能正常加载
+# - 节点运行时会检测可用库并自动适配
+# - 缺失依赖仅影响特定功能，不会影响整体使用
